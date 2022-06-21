@@ -2,25 +2,30 @@ package Board;
 
 public class Piece {
 
-    private static boolean alive;
-    private static char type;
-    private static char color;
+    private final boolean alive;
+    private final char type;
+    private final char color;
 
-    public Piece(char kind, boolean active, char side){
+    public Piece(char kind, boolean active, char side) {
         type = kind;
         color = side;
         alive = active;
     }
 
-    public char getType(){
-        return type;
+    public char getType() {
+
+        if (type == 'e') {
+            return ' ';
+        } else {
+            return type;
+        }
     }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return alive;
     }
 
-    public char getColor(){
+    public char getColor() {
         return color;
     }
 
