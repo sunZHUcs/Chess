@@ -3,8 +3,17 @@ package Board;
 public class Chessboard {
 
     private final Piece[][] board = new Piece[8][8];
+    private boolean w2m = true;
 
     public Chessboard() {
+    }
+
+    public void setToMove(boolean x){
+        w2m = x;
+    }
+
+    public boolean getColorMove(){
+        return w2m;
     }
 
     public void fillBoard(String position) {
@@ -66,7 +75,7 @@ public class Chessboard {
                 if (x == 7) {
                     boardLine.append(board[y][x].getType());
                 } else {
-                    boardLine.append(board[y][x].getType()).append(", ");
+                    boardLine.append(board[y][x].getType()).append(",");
                 }
             }
             boardLine.append("]");

@@ -1,11 +1,14 @@
 import Board.Chessboard;
 
 public class Main {
+
+    public static Chessboard chessboard = new Chessboard();
     public static void main(String[] args) {
 
-        Chessboard chessboard = new Chessboard();
-        chessboard.fillBoard("default");
-        chessboard.printBoard();
+        final long begin = System.currentTimeMillis();
+        PromptManager.begin();
+        final long end = System.currentTimeMillis();
+        System.out.println("Operation Time: " + (end-begin) + "ms");
     }
 
     /*
