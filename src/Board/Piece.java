@@ -12,11 +12,16 @@ public class Piece {
         alive = active;
     }
 
-    public String toString(){
-        if(type == 'e'){
-            return " ";
-        }else{
-            return String.valueOf(type);
-        }
+    public char getType(){
+        return type;
     }
+
+    public boolean getStatus(){
+        return alive;
+    }
+
+    public char getColor(){
+        return color;
+    }
+
 }
