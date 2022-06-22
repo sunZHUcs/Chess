@@ -18,6 +18,9 @@ public class PromptManager {
 
         System.out.println("Position and Move set. Printing board...\n");
         Main.chessboard.printBoard();
-        Main.chessboard.playChess();
+        while(!Main.chessboard.getGameStatus()){
+            Main.chessboard.playChess();
+            Main.chessboard.setToMove(!Main.chessboard.getColorMove());
+        }
     }
 }

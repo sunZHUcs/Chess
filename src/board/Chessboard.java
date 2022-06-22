@@ -6,6 +6,7 @@ public class Chessboard {
 
     private final Piece[][] board = new Piece[8][8];
     private boolean w2m = true;
+    private boolean over = false;
 
     public Chessboard() {
     }
@@ -95,6 +96,10 @@ public class Chessboard {
         return board;
     }
 
+    public boolean getGameStatus(){
+        return over;
+    }
+
     public boolean checkSquare(int[] chars, char pieceColor) {
         return board[chars[0]][chars[1]].getColor() != pieceColor;
     }
@@ -121,10 +126,12 @@ public class Chessboard {
         int y = Character.getNumericValue(coords[1]);
         int x = Character.getNumericValue(coords[2]);
 
-        if (board[y][x].move(input[1], this)) {
-            System.out.println("Moved Successfully");
+        if(!board[y][x].move(input[1], this)){
+            playChess();
         }
+
         printBoard();
+        System.out.println();
     }
 
 }
