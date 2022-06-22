@@ -1,15 +1,17 @@
-package Board;
+package board;
 
 public class Piece {
 
     private final boolean alive;
     private final char type;
     private final char color;
+    private int[] position;
 
-    public Piece(char kind, boolean active, char side) {
+    public Piece(char kind, boolean active, char side, int[] place) {
         type = kind;
         color = side;
         alive = active;
+        position = place;
     }
 
     public char getType() {
@@ -27,6 +29,18 @@ public class Piece {
 
     public char getColor() {
         return color;
+    }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public void setPosition(int[] chars) {
+        position = chars;
+    }
+
+    public boolean move(String input, Chessboard chessboard) {
+        return false;
     }
 
 }

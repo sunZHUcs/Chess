@@ -1,14 +1,15 @@
-import Board.Chessboard;
+import board.Chessboard;
 
 public class Main {
 
-    public static Chessboard chessboard = new Chessboard();
+    public static final Chessboard chessboard = new Chessboard();
+
     public static void main(String[] args) {
 
         final long begin = System.currentTimeMillis();
         PromptManager.begin();
         final long end = System.currentTimeMillis();
-        System.out.println("Operation Time: " + (end-begin) + "ms");
+        System.out.println("Operation Time: " + (end - begin) + "ms");
     }
 
     /*
