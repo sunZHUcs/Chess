@@ -104,8 +104,10 @@ public class Chessboard {
     public boolean checkSquare(int[] coords, Piece piece) {
 
         char type = piece.getType();
-        if (type == 'p') {
+        if (type == 'p' || type == 'n' || type == 'k')  {
             return board[coords[1]][coords[0]].getColor() != piece.getColor();
+        }else if (type == 'b'){
+            return board[coords[1]][coords[0]].isEmpty();
         }
         //return board[chars[1]][chars[0]].getColor() != pieceColor;
         return false;
@@ -131,7 +133,7 @@ public class Chessboard {
         Scanner scan = new Scanner(System.in);
 
 
-        String in = scan.nextLine().replaceAll("[pbknqr]", "");
+        String in = scan.nextLine().substring(1);
 
         in = in.replaceAll("a", "0");
         in = in.replaceAll("b", "1");
