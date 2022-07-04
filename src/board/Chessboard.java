@@ -1,5 +1,6 @@
 package board;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Chessboard {
@@ -8,7 +9,9 @@ public class Chessboard {
     private boolean w2m = true;
     private boolean over = false;
 
-    public Chessboard() {}
+    public Chessboard() {
+    }
+
     public void setToMove(boolean x) {
         w2m = x;
     }
@@ -94,18 +97,24 @@ public class Chessboard {
         return board;
     }
 
-    public boolean getGameStatus(){
+    public boolean getGameStatus() {
         return over;
     }
 
-    public boolean checkSquare(int[] chars, char pieceColor) {
+    public boolean checkSquare(int[] coords, Piece piece) {
 
-
-        return board[chars[1]][chars[0]].getColor() != pieceColor;
+        char type = piece.getType();
+        if (type == 'p') {
+            return board[coords[1]][coords[0]].getColor() != piece.getColor();
+        }
+        //return board[chars[1]][chars[0]].getColor() != pieceColor;
+        return false;
     }
 
     public void updateBoard(Piece piece, int[] newplace) {
         int[] oldPos = piece.getPosition();
+        System.out.println(Arrays.toString(oldPos));
+        System.out.println(Arrays.toString(newplace));
         board[oldPos[1]][oldPos[0]] = new Empty(oldPos);
         board[newplace[1]][newplace[0]] = piece;
     }
@@ -122,7 +131,6 @@ public class Chessboard {
         Scanner scan = new Scanner(System.in);
 
 
-
         String in = scan.nextLine().replaceAll("[pbknqr]", "");
 
         in = in.replaceAll("a", "0");
@@ -135,17 +143,16 @@ public class Chessboard {
         in = in.replaceAll("h", "7");
 
         String[] input = in.split("\\.");
-        char[] coords = input[0].toCharArray();
-        int y = Character.getNumericValue(coords[1]);
-        int x = Character.getNumericValue(coords[0]);
+        int y = Character.getNumericValue(input[0].charAt(1));
+        int x = Character.getNumericValue(input[0].charAt(0));
 
         System.out.println(input[1]);
-        if(!board[y][x].move(input[1], this)){
+        if (!board[y][x].move(input[1], this)) {
             playChess();
         }
 
         printBoard();
-        System.out.println();
+        System.out.println("Method Completed");
     }
 
 }

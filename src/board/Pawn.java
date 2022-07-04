@@ -7,39 +7,53 @@ public class Pawn extends Piece {
 
     public boolean move(String input, Chessboard chessboard) {
 
-        input = input.substring(input.indexOf(".") + 1);
         int[] coords = new int[2];
+        int x = Character.getNumericValue(input.charAt(0));
+        int y = Character.getNumericValue(input.charAt(1));
+        int ix = getPosition()[0];
+        int iy = getPosition()[1];
+        coords[0] = x;
+        coords[1] = y;
 
-        for (int i = 0; i < coords.length; i++) {
-            coords[i] = input.charAt(i) - '0';
-        }
-
-        if (!super.getStatus()) {
+        if (super.getStatus()) {
             System.out.println("Invalid Move!");
             return false;
         }
 
-        if (getPosition()[1] == coords[1]) {
+        //Moving up/down into empty squares with both white and black
+        if (ix == x) {
             if (chessboard.getColorMove()) {
-                if (getPosition()[0] == (coords[0] - 1)) {
-                    if(chessboard.getBoard()[coords[0]][coords[1]].isEmpty()){
-                        movePiece(coords, chessboard);
+                if (iy == (y - 1)) {
+                    if (chessboard.getBoard()[y][x].isEmpty()) {
+                        super.movePiece(coords, chessboard);
                         return true;
                     }
                 }
             } else {
-                if (getPosition()[0] == (coords[0] + 1)) {
-                    if (chessboard.checkSquare(coords, getColor())) {
-                        movePiece(coords, chessboard);
+                if (iy == (y + 1)) {
+                    if (chessboard.checkSquare(coords, this)) {
+                        super.movePiece(coords, chessboard);
                         return true;
                     }
                 }
             }
 
-        } else if ((getPosition()[1] == (coords[1] - 1) || getPosition()[1] == (coords[1] + 1))) {
-            if (getPosition()[0] == (coords[0] + 1)) {
-                movePiece(coords, chessboard);
-                return true;
+            //Captures
+        } else if ((ix == (x - 1) || ix == (x + 1))) {
+            if (chessboard.getColorMove()) {
+                if (iy == (y - 1)) {
+                    if (chessboard.checkSquare(coords, this)) {
+                        super.movePiece(coords, chessboard);
+                        return true;
+                    }
+                }
+            } else {
+                if (iy == (y + 1)) {
+                    if (chessboard.checkSquare(coords, this)) {
+                        super.movePiece(coords, chessboard);
+                        return true;
+                    }
+                }
             }
         }
 

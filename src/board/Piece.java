@@ -23,12 +23,12 @@ public class Piece {
         }
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return type == 'e';
     }
 
     public boolean getStatus() {
-        return alive;
+        return !alive;
     }
 
     public char getColor() {
@@ -43,13 +43,13 @@ public class Piece {
         position = chars;
     }
 
-    public void movePiece(int[] coords, Chessboard chessboard){
+    public void movePiece(int[] coords, Chessboard chessboard) {
         chessboard.updateBoard(this, coords);
         setPosition(coords);
     }
 
     public boolean move(String input, Chessboard chessboard) {
-        return false;
+        return true;
     }
 
 }
