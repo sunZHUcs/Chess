@@ -8,9 +8,7 @@ public class Chessboard {
     private boolean w2m = true;
     private boolean over = false;
 
-    public Chessboard() {
-    }
-
+    public Chessboard() {}
     public void setToMove(boolean x) {
         w2m = x;
     }
@@ -30,14 +28,14 @@ public class Chessboard {
                 } else {
                     color = 'b';
                 }
-                board[y][0] = new Rook(true, color, new int[]{y, 0});
-                board[y][1] = new Knight(true, color, new int[]{y, 1});
-                board[y][2] = new Bishop(true, color, new int[]{y, 2});
-                board[y][3] = new Queen(true, color, new int[]{y, 3});
-                board[y][4] = new King(true, color, new int[]{y, 4});
-                board[y][5] = new Bishop(true, color, new int[]{y, 5});
-                board[y][6] = new Knight(true, color, new int[]{y, 6});
-                board[y][7] = new Rook(true, color, new int[]{y, 7});
+                board[y][0] = new Rook(true, color, new int[]{0, y});
+                board[y][1] = new Knight(true, color, new int[]{1, y});
+                board[y][2] = new Bishop(true, color, new int[]{2, y});
+                board[y][3] = new Queen(true, color, new int[]{3, y});
+                board[y][4] = new King(true, color, new int[]{4, y});
+                board[y][5] = new Bishop(true, color, new int[]{5, y});
+                board[y][6] = new Knight(true, color, new int[]{6, y});
+                board[y][7] = new Rook(true, color, new int[]{7, y});
             }
 
             //Pawns
@@ -48,7 +46,7 @@ public class Chessboard {
                     color = 'b';
                 }
                 for (int x = 0; x < 8; x++) {
-                    Piece p = new Pawn(true, color, new int[]{y, x});
+                    Piece p = new Pawn(true, color, new int[]{x, y});
                     board[y][x] = p;
                 }
             }
@@ -56,7 +54,7 @@ public class Chessboard {
             //Empty Spaces
             for (int y = 2; y < 6; y++) {
                 for (int x = 0; x < 8; x++) {
-                    Piece e = new Empty(new int[]{y, x});
+                    Piece e = new Empty(new int[]{x, y});
                     board[y][x] = e;
                 }
             }
@@ -101,13 +99,15 @@ public class Chessboard {
     }
 
     public boolean checkSquare(int[] chars, char pieceColor) {
-        return board[chars[0]][chars[1]].getColor() != pieceColor;
+
+
+        return board[chars[1]][chars[0]].getColor() != pieceColor;
     }
 
     public void updateBoard(Piece piece, int[] newplace) {
         int[] oldPos = piece.getPosition();
-        board[oldPos[0]][oldPos[1]] = new Empty(oldPos);
-        board[newplace[0]][newplace[1]] = piece;
+        board[oldPos[1]][oldPos[0]] = new Empty(oldPos);
+        board[newplace[1]][newplace[0]] = piece;
     }
 
     public void playChess() {
@@ -118,14 +118,28 @@ public class Chessboard {
             color = "Black";
         }
 
-        System.out.println(color + " to move. Enter a move: [(piece)(square)x.(new square)]");
+        System.out.println(color + " to move. Enter a move: [(piece)(square).(new square)]");
         Scanner scan = new Scanner(System.in);
-        String in = scan.nextLine();
-        String[] input = in.split("x");
+
+
+
+        String in = scan.nextLine().replaceAll("[pbknqr]", "");
+
+        in = in.replaceAll("a", "0");
+        in = in.replaceAll("b", "1");
+        in = in.replaceAll("c", "2");
+        in = in.replaceAll("d", "3");
+        in = in.replaceAll("e", "4");
+        in = in.replaceAll("f", "5");
+        in = in.replaceAll("g", "6");
+        in = in.replaceAll("h", "7");
+
+        String[] input = in.split("\\.");
         char[] coords = input[0].toCharArray();
         int y = Character.getNumericValue(coords[1]);
-        int x = Character.getNumericValue(coords[2]);
+        int x = Character.getNumericValue(coords[0]);
 
+        System.out.println(input[1]);
         if(!board[y][x].move(input[1], this)){
             playChess();
         }
