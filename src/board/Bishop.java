@@ -6,6 +6,7 @@ public class Bishop extends Piece {
     }
 
     public boolean move(String input, Chessboard chessboard) {
+
         int[] coords = new int[2];
         int x = Character.getNumericValue(input.charAt(0));
         int y = Character.getNumericValue(input.charAt(1));

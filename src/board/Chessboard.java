@@ -106,7 +106,7 @@ public class Chessboard {
         char type = piece.getType();
         if (type == 'p' || type == 'n' || type == 'k')  {
             return board[coords[1]][coords[0]].getColor() != piece.getColor();
-        }else if (type == 'b'){
+        }else if (type == 'b' || type == 'r'){
             return board[coords[1]][coords[0]].isEmpty();
         }
         //return board[chars[1]][chars[0]].getColor() != pieceColor;
@@ -135,6 +135,17 @@ public class Chessboard {
 
         String in = scan.nextLine().substring(1);
 
+        //adjust by one -- y coords
+        in = in.replaceAll("1", "0");
+        in = in.replaceAll("2", "1");
+        in = in.replaceAll("3", "2");
+        in = in.replaceAll("4", "3");
+        in = in.replaceAll("5", "4");
+        in = in.replaceAll("6", "5");
+        in = in.replaceAll("7", "6");
+        in = in.replaceAll("8", "7");
+
+        //x coordinates
         in = in.replaceAll("a", "0");
         in = in.replaceAll("b", "1");
         in = in.replaceAll("c", "2");
